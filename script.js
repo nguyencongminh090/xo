@@ -147,15 +147,21 @@ function showCoordinates(e) {
         let colLetter = String.fromCharCode(65 + cord[0]); // Convert column index to letter (A, B, ...)
         let rowNumber = cord[1] + 1; // Convert row index to row number
 
-        // Display the coordinates (e.g., "A1")
+        // Get the coordinate display element
         let coordDisplay = document.querySelector("#hover-coordinates");
-        coordDisplay.textContent = `Coordinates: ${colLetter}${rowNumber}`;
+        coordDisplay.textContent = `${colLetter}${rowNumber}`;
+
+        // Dynamically position the coordinate display near the top-left of the board
+        const boardRect = boardElement.getBoundingClientRect();
+        coordDisplay.style.left = `${boardRect.left + 10}px`;
+        coordDisplay.style.top = `${boardRect.top - 30}px`; // Position slightly above the board
+        coordDisplay.style.display = "block"; // Ensure it is visible
     }
 }
 
 function clearCoordinates() {
     let coordDisplay = document.querySelector("#hover-coordinates");
-    coordDisplay.textContent = ""; // Clear coordinates display when not hovering
+    coordDisplay.style.display = "none"; // Hide the display when not hovering
 }
 
 // Attach event listeners for hovering
