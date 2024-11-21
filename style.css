@@ -131,7 +131,7 @@ table#board{
 
 #game-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: flex-start;
     gap: 20px; /* Space between the move list and the board */
     margin-top: 20px;
