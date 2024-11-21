@@ -115,3 +115,16 @@ table#board{
         }
     }
 }
+#hover-coordinates {
+    position: absolute;
+    display: none; /* Initially hidden */
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ffffff; /* White background */
+    color: #333; /* Text color */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    pointer-events: none; /* Avoid interfering with mouse events */
+    z-index: 100; /* Ensure it stays above other elements */
+}
