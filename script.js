@@ -67,41 +67,45 @@ function getCord(class_list) {
 }
 
 function undoMove() {
-    if (moveHistory.length === 0) return;
+    // Undo two moves to maintain turn consistency
+    if (moveHistory.length < 2) return;
 
-    let lastMove = moveHistory.pop();
-    redoStack.push(lastMove);
+    for (let i = 0; i < 2; i++) {
+        let lastMove = moveHistory.pop();
+        redoStack.push(lastMove);
 
-    let box = document.querySelector(`.col-${lastMove.cord[0]}.row-${lastMove.cord[1]}`);
-    box.classList.remove(lastMove.player === 1 ? "x" : "o");
-    box.addEventListener("click", placeMove);
+        let box = document.querySelector(`.col-${lastMove.cord[0]}.row-${lastMove.cord[1]}`);
+        box.classList.remove(lastMove.player === 1 ? "x" : "o");
+        box.addEventListener("click", placeMove);
 
-    if (lastMove.player === 1) {
-        player_1_moves.pop();
-        turn = 1;
-    } else {
-        player_2_moves.pop();
-        turn = 2;
+        if (lastMove.player === 1) {
+            player_1_moves.pop();
+        } else {
+            player_2_moves.pop();
+        }
     }
+    turn = turn === 1 ? 2 : 1; // Switch turn after undo
 }
 
 function redoMove() {
-    if (redoStack.length === 0) return;
+    // Redo two moves to maintain turn consistency
+    if (redoStack.length < 2) return;
 
-    let nextMove = redoStack.pop();
-    moveHistory.push(nextMove);
+    for (let i = 0; i < 2; i++) {
+        let nextMove = redoStack.pop();
+        moveHistory.push(nextMove);
 
-    let box = document.querySelector(`.col-${nextMove.cord[0]}.row-${nextMove.cord[1]}`);
-    box.classList.add(nextMove.player === 1 ? "x" : "o");
-    box.removeEventListener("click", placeMove);
+        let box = document.querySelector(`.col-${nextMove.cord[0]}.row-${nextMove.cord[1]}`);
+        box.classList.add(nextMove.player === 1 ? "x" : "o");
+        box.removeEventListener("click", placeMove);
 
-    if (nextMove.player === 1) {
-        player_1_moves.push(nextMove.cord);
-        turn = 2;
-    } else {
-        player_2_moves.push(nextMove.cord);
-        turn = 1;
+        if (nextMove.player === 1) {
+            player_1_moves.push(nextMove.cord);
+        } else {
+            player_2_moves.push(nextMove.cord);
+        }
     }
+    turn = turn === 1 ? 2 : 1; // Switch turn after redo
 }
 
 function changeWincolor(move, d) {
