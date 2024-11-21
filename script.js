@@ -1,3 +1,7 @@
+document.querySelector("#btnStart").addEventListener("click", newGame);
+document.querySelector("#btnUndo").addEventListener("click", undoMove);
+document.querySelector("#btnRedo").addEventListener("click", redoMove);
+
 var btnStart = document.querySelector("#btnStart");
 var btnUndo = document.querySelector("#btnUndo");
 var btnRedo = document.querySelector("#btnRedo");
