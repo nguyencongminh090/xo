@@ -16,14 +16,14 @@ body,html{
     align-items: center;
     height: 100%;
     width: 50%;
-    background-color: rgb(14, 14, 14);
+    background-color: rgb(242, 242, 242);
     min-width: fit-content;
 }
 table#board{
     border-collapse: collapse;
     & td{
         content: "ddd";
-        border: 2px solid rgb(199, 248, 255);
+        border: 2px solid rgb(0, 0, 0);
         width: 35px;
         height: 35px;
         text-align: center;
