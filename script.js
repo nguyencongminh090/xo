@@ -14,13 +14,25 @@ var redoStack = [];
 function newGame() {
     player_1_moves = [];
     player_2_moves = [];
-    moveHistory = [];
-    redoStack = [];
-    rows = parseInt(document.querySelector("#row").value);
-    columns = parseInt(document.querySelector("#col").value);
+    rows = document.querySelector("#row").value;
+    columns = document.querySelector("#col").value;
     turn = 1;
+
+    // Clear the move list
+    document.querySelector("#moves").textContent = "";
+
     loadBoard();
 }
+
+function logMove(player, col, row) {
+    // Add move to the move list
+    let moveList = document.querySelector("#moves");
+    let moveItem = document.createElement("li");
+    moveItem.innerHTML = `<span>${player}:</span> ${col}${row}`;
+    moveList.appendChild(moveItem);
+}
+
+
 
 function loadBoard() {
     boardElement.textContent = ''; // Clear the board
@@ -60,26 +72,27 @@ function loadBoard() {
 function placeMove(e) {
     let box = e.target;
     let cord = getCord(box.classList);
+    let colLetter = String.fromCharCode(65 + cord[0]); // Column as letter
+    let rowNumber = cord[1] + 1; // Row number
 
-    if (turn == 1) {
+    if (turn === 1) {
         player_1_moves.push(cord);
-        moveHistory.push({ player: 1, cord });
         turn = 2;
         box.classList.add("x");
+        logMove("X", colLetter, rowNumber);
         if (checkWin(player_1_moves)) {
             alert("X wins!");
         }
-    } else if (turn == 2) {
+    } else if (turn === 2) {
         player_2_moves.push(cord);
-        moveHistory.push({ player: 2, cord });
         turn = 1;
         box.classList.add("o");
+        logMove("O", colLetter, rowNumber);
         if (checkWin(player_2_moves)) {
             alert("O wins!");
         }
     }
     box.removeEventListener("click", placeMove);
-    redoStack = []; // Clear redo stack on a new move
 }
 
 function getCord(class_list) {

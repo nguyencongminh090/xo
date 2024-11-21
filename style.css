@@ -128,3 +128,52 @@ table#board{
     pointer-events: none; /* Avoid interfering with mouse events */
     z-index: 100; /* Ensure it stays above other elements */
 }
+
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px; /* Space between the move list and the board */
+    margin-top: 20px;
+}
+
+#move-list {
+    width: 150px;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#move-list h3 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+#moves {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#moves li {
+    padding: 5px;
+    margin: 3px 0;
+    border-bottom: 1px dashed #ccc;
+    font-size: 14px;
+    color: #444;
+}
+
+#moves li:last-child {
+    border-bottom: none;
+}
+
+#moves li span {
+    font-weight: bold;
+}
