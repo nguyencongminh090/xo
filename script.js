@@ -138,6 +138,30 @@ function checkWin(pMoves) {
     return false;
 }
 
+function showCoordinates(e) {
+    let box = e.target;
+
+    // Ensure we're hovering over a valid cell
+    if (box.tagName === "TD") {
+        let cord = getCord(box.classList);
+        let colLetter = String.fromCharCode(65 + cord[0]); // Convert column index to letter (A, B, ...)
+        let rowNumber = cord[1] + 1; // Convert row index to row number
+
+        // Display the coordinates (e.g., "A1")
+        let coordDisplay = document.querySelector("#hover-coordinates");
+        coordDisplay.textContent = `Coordinates: ${colLetter}${rowNumber}`;
+    }
+}
+
+function clearCoordinates() {
+    let coordDisplay = document.querySelector("#hover-coordinates");
+    coordDisplay.textContent = ""; // Clear coordinates display when not hovering
+}
+
+// Attach event listeners for hovering
+boardElement.addEventListener("mouseover", showCoordinates);
+boardElement.addEventListener("mouseout", clearCoordinates);
+
 // Attach event listeners to buttons
 btnStart.addEventListener("click", newGame);
 btnUndo.addEventListener("click", undoMove);
