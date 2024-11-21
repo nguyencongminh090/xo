@@ -84,4 +84,34 @@ table#board{
             background: white;
         }
     }
+    & #btnUndo{
+        margin-top: 10px;
+        height: 40px;
+        width: fit-content;
+        padding: 0 5px;
+        font-weight: bold;
+        color: white;
+        border: none;
+        cursor: pointer;
+        background:linear-gradient(45deg,red,blue);
+        &:hover{
+            color: lime;
+            background: white;
+        }
+    }
+    & #btnRedo{
+        margin-top: 10px;
+        height: 40px;
+        width: fit-content;
+        padding: 0 5px;
+        font-weight: bold;
+        color: white;
+        border: none;
+        cursor: pointer;
+        background:linear-gradient(45deg,red,blue);
+        &:hover{
+            color: lime;
+            background: white;
+        }
+    }
 }
