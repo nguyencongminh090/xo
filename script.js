@@ -1,7 +1,3 @@
-document.querySelector("#btnStart").addEventListener("click", newGame);
-document.querySelector("#btnUndo").addEventListener("click", undoMove);
-document.querySelector("#btnRedo").addEventListener("click", redoMove);
-
 var btnStart = document.querySelector("#btnStart");
 var btnUndo = document.querySelector("#btnUndo");
 var btnRedo = document.querySelector("#btnRedo");
@@ -20,16 +16,25 @@ function newGame() {
     player_2_moves = [];
     moveHistory = [];
     redoStack = [];
-    rows = document.querySelector("#row").value;
-    columns = document.querySelector("#col").value;
+    rows = parseInt(document.querySelector("#row").value);
+    columns = parseInt(document.querySelector("#col").value);
     turn = 1;
     loadBoard();
 }
 
 function loadBoard() {
-    boardElement.textContent = '';
-    for (let i = 0; i < rows; i++) {
+    boardElement.textContent = ''; // Clear the board
+
+    // Add the main board rows with row numbers (bottom to top)
+    for (let i = rows - 1; i >= 0; i--) {
         let row = document.createElement("tr");
+
+        // Add row header (row numbers)
+        let rowHeader = document.createElement("th");
+        rowHeader.textContent = i + 1;
+        row.appendChild(rowHeader);
+
+        // Add cells
         for (let j = 0; j < columns; j++) {
             let col = document.createElement("td");
             col.classList.add(`row-${i}`);
@@ -39,6 +44,17 @@ function loadBoard() {
         }
         boardElement.appendChild(row);
     }
+
+    // Add column headers (A-Z) at the bottom of the board
+    let footerRow = document.createElement("tr");
+    footerRow.appendChild(document.createElement("th")); // Empty corner cell
+
+    for (let j = 0; j < columns; j++) {
+        let th = document.createElement("th");
+        th.textContent = String.fromCharCode(65 + j); // Convert number to letter
+        footerRow.appendChild(th);
+    }
+    boardElement.appendChild(footerRow);
 }
 
 function placeMove(e) {
@@ -122,7 +138,7 @@ function checkWin(pMoves) {
     return false;
 }
 
-// Event listeners for buttons
+// Attach event listeners to buttons
 btnStart.addEventListener("click", newGame);
 btnUndo.addEventListener("click", undoMove);
 btnRedo.addEventListener("click", redoMove);
