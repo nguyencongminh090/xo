@@ -67,45 +67,43 @@ function getCord(class_list) {
 }
 
 function undoMove() {
-    // Undo two moves to maintain turn consistency
-    if (moveHistory.length < 2) return;
+    if (moveHistory.length === 0) return; // No moves to undo
 
-    for (let i = 0; i < 2; i++) {
-        let lastMove = moveHistory.pop();
-        redoStack.push(lastMove);
+    let lastMove = moveHistory.pop(); // Get the last move
+    redoStack.push(lastMove); // Save it in the redo stack
 
-        let box = document.querySelector(`.col-${lastMove.cord[0]}.row-${lastMove.cord[1]}`);
-        box.classList.remove(lastMove.player === 1 ? "x" : "o");
-        box.addEventListener("click", placeMove);
+    let box = document.querySelector(`.col-${lastMove.cord[0]}.row-${lastMove.cord[1]}`);
+    box.classList.remove(lastMove.player === 1 ? "x" : "o"); // Remove X or O
+    box.addEventListener("click", placeMove); // Make the box clickable again
 
-        if (lastMove.player === 1) {
-            player_1_moves.pop();
-        } else {
-            player_2_moves.pop();
-        }
+    // Remove the move from the respective player's moves list
+    if (lastMove.player === 1) {
+        player_1_moves.pop();
+        turn = 1; // Set turn back to player 1
+    } else {
+        player_2_moves.pop();
+        turn = 2; // Set turn back to player 2
     }
-    turn = turn === 1 ? 2 : 1; // Switch turn after undo
 }
 
 function redoMove() {
-    // Redo two moves to maintain turn consistency
-    if (redoStack.length < 2) return;
+    if (redoStack.length === 0) return; // No moves to redo
 
-    for (let i = 0; i < 2; i++) {
-        let nextMove = redoStack.pop();
-        moveHistory.push(nextMove);
+    let nextMove = redoStack.pop(); // Get the last undone move
+    moveHistory.push(nextMove); // Save it back to the move history
 
-        let box = document.querySelector(`.col-${nextMove.cord[0]}.row-${nextMove.cord[1]}`);
-        box.classList.add(nextMove.player === 1 ? "x" : "o");
-        box.removeEventListener("click", placeMove);
+    let box = document.querySelector(`.col-${nextMove.cord[0]}.row-${nextMove.cord[1]}`);
+    box.classList.add(nextMove.player === 1 ? "x" : "o"); // Add X or O
+    box.removeEventListener("click", placeMove); // Make the box unclickable
 
-        if (nextMove.player === 1) {
-            player_1_moves.push(nextMove.cord);
-        } else {
-            player_2_moves.push(nextMove.cord);
-        }
+    // Add the move back to the respective player's moves list
+    if (nextMove.player === 1) {
+        player_1_moves.push(nextMove.cord);
+        turn = 2; // Set turn back to player 2
+    } else {
+        player_2_moves.push(nextMove.cord);
+        turn = 1; // Set turn back to player 1
     }
-    turn = turn === 1 ? 2 : 1; // Switch turn after redo
 }
 
 function changeWincolor(move, d) {
