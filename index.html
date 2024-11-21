@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div id="hover-coordinates" style="display: none; position: absolute; font-weight: bold; background-color: white; padding: 5px; border: 1px solid black; border-radius: 4px;">
+        <!-- Coordinates will be displayed here -->
+    </div>
     <div id="board-container">
         <table id="board">
         </table>
@@ -35,10 +37,6 @@
                 <option value="15">15</option>
                 <option value="19">19</option>
             </select>
-        </div>
-        
-        <div id="hover-coordinates" style="margin-top: 10px; font-weight: bold; text-align: center;">
-            <!-- Coordinates will be displayed here -->
         </div>
 
         <button id="btnStart">Start Game</button>
